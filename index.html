@@ -4,71 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Administrador de Pacientes</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>Pet-erinaria</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h2 class="text-center my-5 titulo">Reserva de Citas Clinica Veterinaria</h2>
-    <div class="container mt-5 p-5">
-        <div id="contenido" class="row">
-            <div class="col-md-6 agregar-cita">
-                <div class="alerta"></div>
-                <form id="nueva-cita">
-                    <legend class="mb-4">Datos del Paciente</legend>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Nombre Mascota:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="mascota" name="mascota" class="form-control" placeholder="Nombre Mascota">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Propietario:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="propietario" name="propietario" class="form-control"  placeholder="Nombre Dueño de la Mascota">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Teléfono:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="tel" id="telefono" name="telefono" class="form-control"  placeholder="Número de Teléfono">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Fecha:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="date" id="fecha" name="fecha" class="form-control">
-                        </div>
-                    </div>
+    <!-- Contenedor global de avisos tipo toast -->
+    <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Hora:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <input type="time" id="hora" name="hora" class="form-control">
-                        </div>
-                    </div>
+    <div class="page-shell">
+        <!-- Cabecera visual del sitio -->
+        <div class="brand-row">Propósito <span>→</span> Identidad <span>→</span> Diseño.</div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-lg-4 col-form-label">Sintomas:</label>
-                        <div class="col-sm-8 col-lg-8">
-                            <textarea id="sintomas" name="sintomas" class="form-control"></textarea>
-                        </div>
+        <section class="hero">
+            <div class="hero__content">
+                <p class="eyebrow">Clínica veterinaria</p>
+                <h1 class="titulo">Cuidado con amor para cada mascota</h1>
+                <p class="hero__text">
+                    Agenda consultas, seguimientos y revisiones con una experiencia moderna, rápida y centrada en el bienestar animal.
+                </p>
+
+                <div class="hero__actions">
+                    <a href="#formulario" class="btn btn-primary">Reservar cita</a>
+                    <a href="#citas" class="btn btn-secondary">Ver agenda</a>
+                </div>
+
+                <div class="hero__stats">
+                    <div>
+                        <strong>2.4k+</strong>
+                        <span>mascotas atendidas</span>
                     </div>
-                    <div class="form-group">
+                    <div>
+                        <strong>4.9/5</strong>
+                        <span>valoración clientes</span>
+                    </div>
+                    <div>
+                        <strong>24/7</strong>
+                        <span>soporte para clientes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galería de imágenes de la clínica -->
+            <div class="hero__visual" aria-label="Imagen de animales">
+                <div class="photo photo-large">
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=80" alt="Perro feliz" />
+                </div>
+                <div class="photo photo-small top">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=700&q=80" alt="Gato tranquilo" />
+                </div>
+                <div class="photo photo-small bottom">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=700&q=80" alt="Mascota y dueño" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección principal del formulario y la agenda -->
+        <main class="container mt-5 p-5" id="formulario">
+            <div id="contenido" class="row">
+                <div class="col-md-6 agregar-cita">
+                    <div class="alerta"></div>
+
+                    <!-- Formulario para crear o actualizar citas -->
+                    <form id="nueva-cita" novalidate>
+                        <legend class="mb-4">Datos del Paciente</legend>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Nombre Mascota:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="text" id="mascota" name="mascota" class="form-control" placeholder="Nombre Mascota" required maxlength="50" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Propietario:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="text" id="propietario" name="propietario" class="form-control" placeholder="Nombre Dueño de la Mascota" required maxlength="80" autocomplete="name">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Teléfono:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="tel" id="telefono" name="telefono" class="form-control" placeholder="Número de Teléfono" required maxlength="20" autocomplete="tel">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Fecha:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="date" id="fecha" name="fecha" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Hora:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <input type="time" id="hora" name="hora" class="form-control" min="09:30" max="19:00" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-lg-4 col-form-label">Sintomas:</label>
+                            <div class="col-sm-8 col-lg-8">
+                                <textarea id="sintomas" name="sintomas" class="form-control" required minlength="10" maxlength="500"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <button type="submit" class="btn btn-success w-100 d-block">Crear Cita</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <h2 id="administra" class="mb-4">Administra tus Citas</h2>
-                <ul id="citas" class="list-group lista-citas"></ul>
+                        </div>
+                    </form>
+                </div>
 
-                
+                <div class="col-md-6" id="citas-panel">
+                    <h2 id="administra" class="mb-4">Administra tus Citas</h2>
+                    <ul id="citas" class="list-group lista-citas"></ul>
+                </div>
             </div>
-        </div> <!--.row-->
-    </div><!--.container-->
+        </main>
+    </div>
 
+    <!-- Scripts cargados al final para que el DOM esté listo -->
     <script src="js/cita.js"></script>
-
+    <script src="js/app.js"></script>
 </body>
 </html>
