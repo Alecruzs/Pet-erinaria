@@ -1,22 +1,47 @@
-// Esta clase guarda en memoria todas las citas de la agenda.
+// Esta clase administra y persiste todas las citas de la agenda.
 class Citas {
     constructor() {
-        this.citas = [];
+        this.claveStorage = 'citasVet.citas';
+        this.citas = this.cargarCitas();
+    }
+
+    // Recupera las citas guardadas al volver a abrir la aplicación.
+    cargarCitas() {
+        try {
+            const citasGuardadas = localStorage.getItem(this.claveStorage);
+            const citas = citasGuardadas ? JSON.parse(citasGuardadas) : [];
+            return Array.isArray(citas) ? citas : [];
+        } catch (error) {
+            console.warn('No se pudieron cargar las citas guardadas.', error);
+            return [];
+        }
+    }
+
+    // Guarda la colección actual en el navegador.
+    guardarCitas() {
+        try {
+            localStorage.setItem(this.claveStorage, JSON.stringify(this.citas));
+        } catch (error) {
+            console.error('No se pudieron guardar las citas.', error);
+        }
     }
 
     // Añade una nueva cita a la lista.
     agregarCita(cita) {
         this.citas = [...this.citas, cita];
+        this.guardarCitas();
     }
 
     // Elimina una cita según su id.
     eliminarCita(id) {
         this.citas = this.citas.filter(cita => cita.id !== id);
+        this.guardarCitas();
     }
 
     // Reemplaza una cita existente por la versión actualizada.
     editarCita(citaActualizada) {
         this.citas = this.citas.map(cita => cita.id === citaActualizada.id ? citaActualizada : cita);
+        this.guardarCitas();
     }
 }
 

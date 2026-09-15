@@ -184,3 +184,6 @@ function cargarEdicion(cita) {
 }
 
 eventListeners();
+
+// Pinta las citas recuperadas de localStorage al cargar la aplicación.
+useri.inprimirCitas(administraCitas);
